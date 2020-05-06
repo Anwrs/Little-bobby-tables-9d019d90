@@ -18,7 +18,7 @@ try {
 }
 
 if (isset($_COOKIE['loggedInUser'])) {
-    
+    echo "Logged in";
 } else {
     header('location:login.php');
 }
@@ -212,7 +212,7 @@ if (isset($_COOKIE['loggedInUser'])) {
         $youtube_trailer_id = $_POST['youtube_trailer_id'];
 
         $sql = "INSERT INTO movies(title, duur, datum_van_uitkomst, land_van_uitkomst, description, youtube_trailer_id) VALUES (?,?,?,?,?,?);";
-        $stmt= $pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql);
         $stmt->execute([$title, $duur, $datum_van_uitkomst, $land_van_uitkomst, $description, $youtube_trailer_id]);
     }
     ?>
@@ -242,7 +242,7 @@ if (isset($_COOKIE['loggedInUser'])) {
         $description = $_POST['description'];
 
         $sql = "INSERT INTO series(title, rating, has_won_awards, seasons, description, language, country) VALUES (?,?,?,?,?,?,?); ";
-        $stmt= $pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql);
         $stmt->execute([$title, $rating, $has_won_awards, $seasons, $description, $language, $country]);
     }
     ?>
