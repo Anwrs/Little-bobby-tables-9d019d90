@@ -17,7 +17,9 @@ try {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
 
-if (isset($_COOKIE['loggedInUser'])) {} else {
+if (isset($_COOKIE['loggedInUser'])) {
+    
+} else {
     header('location:login.php');
 }
 ?>
@@ -30,6 +32,14 @@ if (isset($_COOKIE['loggedInUser'])) {} else {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
+<style>
+    .div {
+        display: flex; 
+        align-items:center;
+        height: 20px;
+    }
+</style>
 
 <body style="display: flex; flex-direction: row;">
     <div class="left" style="display: flex; width: 50%; flex-direction: column;">
@@ -44,27 +54,27 @@ if (isset($_COOKIE['loggedInUser'])) {} else {
                 <th>Tools</th>
             </tr>
             <!-- Hier worden de films/series laten zien -->
-            <?php
-                $stmt = $pdo->query('SELECT * FROM series');
-                while ($row = $stmt->fetch()) : ?> 
-                    <tr>
-                        <td>Serie</td>
-                        <td><?= $row['title'] ?></td> 
-                        <td><?= $row['seasons'] ?></td>
-                        <td><form action="index.php" method="post"><button type="submit" name="details_series" value="<?= $row['id'] ?>" >Details</button></form></td>
-                        <td><form action="index.php" method="post"><button type="submit" name="wijzig_series" value="<?= $row['id'] ?>" >Wijzig</button></form></td>
-                    </tr>
-                <?php endwhile;
-                $stmt = $pdo->query('SELECT * FROM movies');
-                while ($row = $stmt->fetch()) : ?> 
-                    <tr>
-                        <td>Film</td>
-                        <td><?= $row['title'] ?></td> 
-                        <td><?= $row['duur'] ?></td>
-                        <td><form action="index.php" method="post"><button type="submit" name="details_films" value="<?= $row['id'] ?>" >Details</button></form></td>
-                        <td><form action="index.php" method="post"><button type="submit" name="wijzig_films" value="<?= $row['id'] ?>" >Wijzig</button></form></td>
-                    </tr>
-                <?php endwhile; ?>
+        <?php
+        $stmt = $pdo->query('SELECT * FROM series');
+        while ($row = $stmt->fetch()) : ?> 
+            <tr>
+                <td>Serie</td>
+                <td><?= $row['title'] ?></td> 
+                <td><?= $row['seasons'] ?></td>
+                <td><form action="index.php" method="post"><button type="submit" name="details_series" value="<?= $row['id'] ?>" >Details</button></form></td>
+                <td><form action="index.php" method="post"><button type="submit" name="wijzig_series" value="<?= $row['id'] ?>" >Wijzig</button></form></td>
+            </tr>
+        <?php endwhile;
+        $stmt = $pdo->query('SELECT * FROM movies');
+        while ($row = $stmt->fetch()) : ?> 
+            <tr>
+                <td>Film</td>
+                <td><?= $row['title'] ?></td> 
+                <td><?= $row['duur'] ?></td>
+                <td><form action="index.php" method="post"><button type="submit" name="details_films" value="<?= $row['id'] ?>" >Details</button></form></td>
+                <td><form action="index.php" method="post"><button type="submit" name="wijzig_films" value="<?= $row['id'] ?>" >Wijzig</button></form></td>
+            </tr>
+        <?php endwhile; ?>
         </table>
         <form action="index.php" method="post"><button type="submit" name="add_serie">Serie toevoegen</button></form>
         <form action="index.php" method="post"><button type="submit" name="add_film">Film toevoegen</button></form>
@@ -83,12 +93,12 @@ if (isset($_COOKIE['loggedInUser'])) {} else {
             <h1>Bewerk hier jou film:</h1>
             <h1><?= $row['title']?> - <?= $row['duur'] ?> minuten</h1>
             <form action="index.php" method="post">
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Titel-</h2><input type="text" value="<?= $row['title']?>" name="title" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Duur-</h2><input type="text" value="<?= $row['duur']?>" name="duur" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Datum van uitkomst-</h2><input type="text" value="<?= $row['datum_van_uitkomst']?>" name="datum_van_uitkomst" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Land van uitkomst-</h2><input type="text" value="<?= $row['land_van_uitkomst']?>" name="land_van_uitkomst" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 50px;"><h2>Omschrijving-</h2><textarea rows="4" cols="50" type="text" name="description" id=""><?= $row['description']?></textarea></div><br>
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Youtube Trailer id-</h2><input type="text" value="<?= $row['youtube_trailer_id']?>" name="youtube_trailer_id" id=""></div><br>
+                <div class="div"><h2>Titel-</h2><input type="text" value="<?= $row['title']?>" name="title" id=""></div><br>
+                <div class="div"><h2>Duur-</h2><input type="text" value="<?= $row['duur']?>" name="duur" id=""></div><br>
+                <div class="div"><h2>Datum van uitkomst-</h2><input type="text" value="<?= $row['datum_van_uitkomst']?>" name="datum_van_uitkomst" id=""></div><br>
+                <div class="div"><h2>Land van uitkomst-</h2><input type="text" value="<?= $row['land_van_uitkomst']?>" name="land_van_uitkomst" id=""></div><br>
+                <div class="div"><h2>Omschrijving-</h2><textarea rows="4" cols="50" type="text" name="description" id=""><?= $row['description']?></textarea></div><br>
+                <div class="div"><h2>Youtube Trailer id-</h2><input type="text" value="<?= $row['youtube_trailer_id']?>" name="youtube_trailer_id" id=""></div><br>
                 <button type="submit" value="<?= $id ?>" name="verander_movie">Wijzig</button>
             </form>
         <?php endwhile; ?>
@@ -120,13 +130,13 @@ if (isset($_COOKIE['loggedInUser'])) {} else {
             <h1>Bewerk hier jou serie:</h1>
             <h1><?= $row['title']?> - <?= $row['rating'] ?></h1>
             <form action="index.php" method="post">
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Titel-</h2><input type="text" value="<?= $row['title']?>" name="title" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Rating-</h2><input type="text" value="<?= $row['rating']?>" name="rating" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Awards-</h2><input type="text" value="<?= $row['has_won_awards']?>" name="has_won_awards" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Seizoen-</h2><input type="text" value="<?= $row['seasons']?>" name="seasons" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Country-</h2><input type="text" value="<?= $row['country']?>" name="country" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 20px;"><h2>Language-</h2><input type="text" value="<?= $row['language']?>" name="language" id=""></div><br>
-                <div style="display: flex; align-items:center; height: 50px;"><h2>Omschrijving-</h2><textarea rows="4" cols="50" type="text" name="description" id=""><?= $row['description']?></textarea></div><br>
+                <div class="div"><h2>Titel-</h2><input type="text" value="<?= $row['title']?>" name="title" id=""></div><br>
+                <div class="div"><h2>Rating-</h2><input type="text" value="<?= $row['rating']?>" name="rating" id=""></div><br>
+                <div class="div"><h2>Awards-</h2><input type="text" value="<?= $row['has_won_awards']?>" name="has_won_awards" id=""></div><br>
+                <div class="div"><h2>Seizoen-</h2><input type="text" value="<?= $row['seasons']?>" name="seasons" id=""></div><br>
+                <div class="div"><h2>Country-</h2><input type="text" value="<?= $row['country']?>" name="country" id=""></div><br>
+                <div class="div"><h2>Language-</h2><input type="text" value="<?= $row['language']?>" name="language" id=""></div><br>
+                <div class="div"><h2>Omschrijving-</h2><textarea rows="4" cols="50" type="text" name="description" id=""><?= $row['description']?></textarea></div><br>
                 <button type="submit" value="<?= $id ?>" name="verander_serie">Wijzig</button>
             </form>
         <?php endwhile; ?>
@@ -182,12 +192,12 @@ if (isset($_COOKIE['loggedInUser'])) {} else {
     <?php if (isset($_POST['add_film'])) : ?>
         <form action="index.php" method="post">
             <h1>Film toevoegen:</h1>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Titel-</h2><input type="text" name="title" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Duur-</h2><input type="text" name="duur" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Datum van uitkomst-</h2><input type="text" name="datum_van_uitkomst" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Land van uitkomst-</h2><input type="text" name="land_van_uitkomst" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Youtube Trailer id-</h2><input type="text" name="youtube_trailer_id" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 50px;"><h2>Omschrijving-</h2><textarea rows="4" cols="50" type="text" name="description" id=""></textarea></div><br>
+            <div class="div"><h2>Titel-</h2><input type="text" name="title" id=""></div><br>
+            <div class="div"><h2>Duur-</h2><input type="text" name="duur" id=""></div><br>
+            <div class="div"><h2>Datum van uitkomst-</h2><input type="text" name="datum_van_uitkomst" id=""></div><br>
+            <div class="div"><h2>Land van uitkomst-</h2><input type="text" name="land_van_uitkomst" id=""></div><br>
+            <div class="div"><h2>Youtube Trailer id-</h2><input type="text" name="youtube_trailer_id" id=""></div><br>
+            <div class="div"><h2>Omschrijving-</h2><textarea rows="4" cols="50" type="text" name="description" id=""></textarea></div><br>
         <button type="submit" name="submit">Toevoegen</button>
         </form>
     <?php endif; ?>
@@ -210,13 +220,13 @@ if (isset($_COOKIE['loggedInUser'])) {} else {
     <?php if (isset($_POST['add_serie'])) : ?>
         <form action="index.php" method="post">
             <h1>Serie toevoegen:</h1>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Titel-</h2><input type="text" name="title" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Rating-</h2><input type="text" name="rating" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Awards-</h2><input type="text" name="has_won_awards" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Seizoen-</h2><input type="text" name="seasons" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Country-</h2><input type="text" name="country" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 20px;"><h2>Language-</h2><input type="text" name="language" id=""></div><br>
-            <div style="display: flex; align-items:center; height: 50px;"><h2>Omschrijving-</h2><textarea rows="4" cols="50" type="text" name="description" id=""></textarea></div><br>
+            <div class="div"><h2>Titel-</h2><input type="text" name="title" id=""></div><br>
+            <div class="div"><h2>Rating-</h2><input type="text" name="rating" id=""></div><br>
+            <div class="div"><h2>Awards-</h2><input type="text" name="has_won_awards" id=""></div><br>
+            <div class="div"><h2>Seizoen-</h2><input type="text" name="seasons" id=""></div><br>
+            <div class="div"><h2>Country-</h2><input type="text" name="country" id=""></div><br>
+            <div class="div"><h2>Language-</h2><input type="text" name="language" id=""></div><br>
+            <div class="div"><h2>Omschrijving-</h2><textarea rows="4" cols="50" type="text" name="description" id=""></textarea></div><br>
             <button type="submit" name="submit">Toevoegen</button>
         </form>
     <?php endif; ?>
